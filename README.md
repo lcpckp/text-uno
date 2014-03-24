@@ -1,4 +1,1 @@
-uno
-===
-
-Uno Card Game
+Uno
