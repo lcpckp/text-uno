@@ -10,22 +10,26 @@ public class CardPile
 	
 	public CardPile() throws FileNotFoundException
 	{
-		for(int i = 0; i < 108; i++)
-		{
-			discardPile[i] = new Card(-1, "null"); //fills the deck with null data
+		// Generate a deck of cards
+		private i = 0;  // Current card number
+		private String[] colors = {"yellow", "green", "blue", "red"};
+		for (String color: colors) {
+			// Only 1 '0' valued card per color
+			drawPile[i++] = new Card(0, color);
+			// All other values from '1' to '12' get two cards
+			for (int v = 1; v <= 12; v++) {
+				drawPile[i++] = new Card(v, color);
+				drawPile[i++] = new Card(v, color);
+			}
 		}
 		
-		Scanner deckScanner = new Scanner(new File("/home/alec/Desktop/unodeck.txt")); //opens the uno deck file to read in the cards
-		int inputValue;
-		String inputColor;
-		for(int i = 0; i < 108; i++)
-		{
-			inputValue = deckScanner.nextInt(); //reads the number of the card
-			inputColor = deckScanner.next(); //reads the color of the card
-			drawPile[i] = new Card(inputValue, inputColor); //creates a new card object using this data
+		// Generate 4 "wild" (13) and 4 "wild draw 4" (14) cards
+		for (int v = 1; v <= 4; v++) {
+			drawPile[i++] = new Card(13, "black");
+			drawPile[i++] = new Card(14, "black");
 		}
-		deckScanner.close(); //close the file when done
-		numberOfCards = 108; //set the number of cards to 108
+		
+		numberOfCards = i; //set the number of cards to the number generated
 	}
 	
 	public Card nextCard()
